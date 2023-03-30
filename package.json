@@ -8,9 +8,9 @@
         "helmet": "^6.0.1"
     },
     "engines": {
-        "node": ">=10.13.0",
-        "npm": ">=6.4.1",
-        "yarn": ">=1.9.4"
+        "node": ">=18.14.0",
+        "npm": ">=6.4.1"
+        
     },
     "homepage": "https://github.com/appname",
     "keywords": [
