@@ -7,6 +7,9 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 
+const cors = require('cors');
+app.use(cors());
+
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3002;
 const DIST_DIR = './dist';
@@ -18,6 +21,12 @@ app.use('/^(?!\/api).+/', (req, res) => {
 app.get('/api/v1/endpoint', (req, res) => {
     res.json({ success: true });
 });
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
 
 app.listen(PORT, () =>
     console.log(
@@ -32,12 +41,12 @@ const oauth2 = new jsforce.OAuth2({
      loginUrl : 'https://login.salesforce.com',
     clientId : '3MVG9ux34Ig8G5eo69lXF2jdlWctP3DHEpmXsEbB13BJ5WzXfzFF1XZBBxX44fKN1N4G8jegw5yI0XURUSfT6',
     clientSecret : 'ED5B3198DB229E3EC1CFF0387C861D82046406D36740F873FC9D927047A5FF0A',
-    redirectUri : 'https://eleks.herokuapp.com/oauth2/callback'
+    redirectUri : 'https://localhost:3001/oauth2/callback'
 
 });
-app.get('/oauth2/auth', function(req, res) {
+app.get('/api/authenticate', function(req, res) {
     console.log('new update')
-    res.redirect(oauth2.getAuthorizationUrl({ scope : 'api id web' }));
+    res.redirect(oauth2.getAuthorizationUrl({ scope : 'api' }));
   });
 
   app.get('/oauth2/callback', function(req, res) {
