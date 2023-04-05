@@ -2,7 +2,7 @@ import { LightningElement } from 'lwc';
 
 export default class App extends LightningElement {
     connectedCallback() {
-         fetch('http://localhost:3001/api/authenticate',
+         fetch('https://eleks.herokuapp.com/api/authenticate',
          {
              // Request type
              method:"GET",
@@ -11,6 +11,7 @@ export default class App extends LightningElement {
                  "Access-Control-Allow-Origin": '*',
                  "Accept": "application/json"
              }
+
              }).then(response => response.json())
              .then(data => {
                  if (data.redirectUrl) {
