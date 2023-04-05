@@ -32,6 +32,6 @@ console.log(req.body.password)
 })
 
 //Start your server on a specified port
-app.listen(process.env.PORT || 5000, ()=>{
+app.listen(port, ()=>{
     console.log(`Server is runing on port ${port}`)
 })
